@@ -1,0 +1,8 @@
+.remove{
+    visibility: hidden;
+}
+.list-group-item:hover > .remove{
+    visibility: visible;
+    transition: 0.3s;
+    cursor: pointer;
+}

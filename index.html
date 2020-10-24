@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <title>Todo List</title>
+    
+  </head>
+  <body>
+    <div class="container my-4">
+        <h1 >JavaScript Todo List</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="taskInput">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success btn-sm" onclick="addEvent()" id="btnpress">Add Task</button>
+            </div>
+        </div><br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="list-group" id="taskadd">
+                    <li class="list-group-item">Task 1 <span class="btn btn-danger btn-sm float-right remove">Remove</span></li>
+                    <li class="list-group-item">Task 2 <span class="btn btn-danger btn-sm float-right remove">Remove</span></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+
+    </div><br>
+    <script>
+        updateList();
+        
+        function addEvent(){
+           let input = document.getElementById('taskInput');
+           let taskArr = JSON.parse(localStorage.tasks);
+           taskArr.push(input.value);
+           localStorage.tasks = JSON.stringify(taskArr);
+           input.value = "";
+           updateList();
+        }
+        taskInput.addEventListener("keypress",function(event){
+            if(event.keyCode === 13){
+                addEvent();
+            }
+        })
+        
+
+        function updateList(){
+            let ul = document.getElementById('taskadd');
+            let taskArr = JSON.parse(localStorage.tasks);
+            let len = taskArr.length - 1 ;
+            let html = "";
+
+            for(let i = len; i >= 0; i--){
+                html += '<li class= "list-group-item" id = "'+i+'">'+taskArr[i]+'<span class="btn btn-danger btn-sm float-right remove" onclick="removeItem(this)" >Remove</span></li>';
+            }
+            ul.innerHTML = html;
+        }
+        function removeItem(obj){
+                let indexId = obj.parentElement.id;
+                let taskArr = JSON.parse(localStorage.tasks);
+                taskArr.splice(indexId,1);
+                localStorage.tasks = JSON.stringify(taskArr);
+                updateList();
+            }
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
