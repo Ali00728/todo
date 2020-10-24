@@ -38,7 +38,7 @@
     </div><br>
     <script>
         updateList();
-        
+                   localStorage.tasks = JSON.stringify([]);
         function addEvent(){
            let input = document.getElementById('taskInput');
            let taskArr = JSON.parse(localStorage.tasks);
